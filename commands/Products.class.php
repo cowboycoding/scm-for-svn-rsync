@@ -50,16 +50,14 @@ Class Products
 
 		echo \helpers\Rsync::remote($path1, $path2, true);
 	
-		echo "\n\nAre you sure you want to do this?  Type 'yes' to continue: ";
+		echo "\nAre you sure you? Type 'yes' to continue: ";
 
 		$handle = fopen ("php://stdin","r");
 		$line = fgets($handle);
 		if(trim($line) != 'yes'){
-		    echo "ABORTING!\n";
+		    echo ".. ABORTING!\n";
 		    exit(0);
 		}
-
-		echo "\n";
 
 		echo \helpers\Rsync::remote($path1, $path2);
 	}
