@@ -8,10 +8,14 @@ Class Svn
 	 * @param string $cmd
 	 * @param string $path1
 	 * @param string $path2
+	 * @param string $msg
 	 */
-	public static function exec($cmd, $path1 = '', $path2 = '')
+	public static function exec($cmd, $path1 = '', $path2 = '', $m = '')
 	{
-		$cmd = sprintf("svn %s %s %s", $cmd, $path1, $path2);
+		if(strlen($m) > 0)
+			$m = sprintf(' -m "%s"', addslashes($m));
+
+		$cmd = sprintf("svn %s %s %s %s", $cmd, $path1, $path2, $m);
 		return shell_exec($cmd);
 	}
 

@@ -6,7 +6,7 @@ Class Products
 	public static function checkout($args)
 	{
 		if(count($args) !== 3)
-			\commands\help::show('Not enough arguments');
+			\commands\Help::show('Not enough arguments');
 
 		$productName = $args[2];
 
@@ -18,7 +18,7 @@ Class Products
 			exit(0);
 		}	
 
-		$path1 = 'file:///'.\Config::$repoPath.$productName.'/trunk';
+		$path1 = \Config::$svnProtocol.\Config::$repoPath.$productName.'/trunk';
 		$path2 = \helpers\User::getUserDir().'trunk.'.$productName;
 		
 		if(file_exists($path2))
