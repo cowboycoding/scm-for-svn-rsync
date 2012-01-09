@@ -1,7 +1,7 @@
 <?php
 /**
  * SCM By Rasmus Theodoer Styrl
- * Jan. 2012.
+ * Jan. 2012. rts@ordbogen.com
  */
 
 // Include config
