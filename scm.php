@@ -29,6 +29,10 @@ switch($method)
 	case '--sync-branch':
 		\commands\Branches::sync($argv);
 		break;
+			
+	case '--merge-branch':
+		\commands\Branches::merge($argv);
+		break;
 
 	default:
 		\commands\Help::show();
