@@ -1,4 +1,9 @@
 <?php
+/**
+ * SCM By Rasmus Theodoer Styrl
+ *
+ */
+
 // Include config
 require_once('Config.class.php');
 
