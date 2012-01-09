@@ -47,10 +47,11 @@ Class Products
 			printf("%s does not exists.", $path2);
 			exit(0);
 		}
-
-		echo \helpers\Rsync::remote($path1, $path2, true);
+		
+		$dryRun = \helpers\Rsync::remote($path1, $path2, true);
+		echo \helpers\Rsync::colorSync($dryRun);
 	
-		echo "\nAre you sure you? Type 'yes' to continue: ";
+		echo "Are you sure you? Type 'yes' to continue: ";
 
 		$handle = fopen ("php://stdin","r");
 		$line = fgets($handle);
@@ -59,6 +60,7 @@ Class Products
 		    exit(0);
 		}
 
-		echo \helpers\Rsync::remote($path1, $path2);
+		$sync = \helpers\Rsync::remote($path1, $path2);
+		echo \helpers\Rsync::colorSync($sync);
 	}
 }

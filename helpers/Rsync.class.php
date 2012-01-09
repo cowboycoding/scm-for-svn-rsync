@@ -25,4 +25,33 @@ Class Rsync
 		return shell_exec($cmd);
 	}
 
+	public static function colorSync($string)
+	{
+		$strings = explode("\n", $string);
+	
+		$r = "\n";	
+		foreach($strings as $string)
+		{
+			$case = explode(" ", $string);
+			switch($case[0])
+			{
+				case 'send':
+					$r .= sprintf("\033[32m%s\033[0m\n", $string);
+					break;
+
+				case 'recv':
+					$r .= sprintf("\033[34m%s\033[0m\n", $string);
+					break;
+				
+				case 'del.':
+					$r .= sprintf("\033[31m%s\033[0m\n", $string);
+					break;
+
+				default:
+					$r .= $string."\n";
+			}
+		}
+
+		return $r;
+	}
 }
