@@ -13,4 +13,22 @@ Class Config
 	 * @param string
 	 */
 	public static $svnProtocol = 'file:///';
+
+	/**
+	 * Release path
+	 * @param string
+	 */
+	public static $releasePath = '/srv/Sites/';
+
+	/**
+	 * Release user (ssh user)
+	 * @param string
+	 */
+	public static $releaseUser = 'rasmus';
+
+	/**
+	 * Release server
+	 * @param string
+	 */
+	public static $releaseServer = 'localhost';
 }

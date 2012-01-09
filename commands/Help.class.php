@@ -13,6 +13,8 @@ Class Help
 			echo $msg."\n\n";
 
 		echo 'This is help';
+
+		exit(0);
 	}
 }
 

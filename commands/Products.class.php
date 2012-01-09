@@ -30,4 +30,37 @@ Class Products
 		echo \helpers\Svn::exec('checkout', $path1, $path2);
 		exit(0);
 	}
+
+	public static function release($args)
+	{
+		if(count($args) !== 4)
+			\commands\Help::show('Not enough arguments');
+
+		$productName = $args[2];
+		$destination = $args[3];
+
+		$path1 = \helpers\User::getUserDir().'trunk.'.$productName;
+		$path2 = \Config::$releasePath.$destination; 
+
+		if(!file_exists($path2))
+		{
+			printf("%s does not exists.", $path2);
+			exit(0);
+		}
+
+		echo \helpers\Rsync::remote($path1, $path2, true);
+	
+		echo "\n\nAre you sure you want to do this?  Type 'yes' to continue: ";
+
+		$handle = fopen ("php://stdin","r");
+		$line = fgets($handle);
+		if(trim($line) != 'yes'){
+		    echo "ABORTING!\n";
+		    exit(0);
+		}
+
+		echo "\n";
+
+		echo \helpers\Rsync::remote($path1, $path2);
+	}
 }

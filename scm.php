@@ -9,6 +9,7 @@ require_once('Config.class.php');
 
 // Helpers
 require_once('helpers/Svn.class.php');
+require_once('helpers/Rsync.class.php');
 require_once('helpers/User.class.php');
 
 // Commands
@@ -22,6 +23,10 @@ switch($method)
 	case '--checkout-product':
 		\commands\Products::checkout($argv);	
 		break;
+	
+	case '--release-product':
+		\commands\Products::release($argv);
+		break;	
 	
 	case '--create-branch':
 		\commands\Branches::create($argv);	
