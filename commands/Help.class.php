@@ -23,7 +23,7 @@ Class Help
 
 		);
 
-		echo "\nSCM For svn+rsync, written in PHP by Rasmus Styrk\n";		
+		echo "\nSCM For svn+rsync, written in PHP by Rasmus \"midnatsgartneren\" Styrk\n";		
 		echo "\nCommands:\n\n";
 
 		foreach($cmds as $cmd => $values)
