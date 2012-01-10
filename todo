@@ -2,3 +2,4 @@
 - Fix paths alle funktioner
 - Move config til ~/.scmrc
 - Add logging class
+- Check svn stat ved release (alt skal være comitted før release)
