@@ -1,0 +1,4 @@
+
+- Fix paths alle funktioner
+- Move config til ~/.scmrc
+- Add logging class
