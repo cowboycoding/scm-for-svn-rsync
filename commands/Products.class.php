@@ -3,9 +3,11 @@ namespace commands;
 
 Class Products
 {
+	const ERROR_BAD_CHECKOUT_PATH = 111;
+
 	public static function checkout($args)
 	{
-		if(count($args) !== 3)
+		if(count($args) !== 3 && count($args) !== 4)
 			\commands\Help::show('Not enough arguments');
 
 		$productName = $args[2];
@@ -16,18 +18,41 @@ Class Products
 				$productName,
 				\Config::$repoPath.$productName);
 			exit(0);
-		}	
+		}
 
 		$path1 = \Config::$svnProtocol.\Config::$repoPath.$productName.'/trunk';
-		$path2 = \helpers\User::getUserDir().'trunk.'.$productName;
-		
-		if(file_exists($path2))
+
+		// Assuming that the third argument is a path to place the
+		// code in
+		if (count($args) === 4)
 		{
-			printf("%s already exists.", $path2);
+			$checkoutPath = @$args[3];
+			// absolute path? ow append current working dir
+			if (@$checkoutPath[0] !== '/')
+				$checkoutPath = getcwd().'/'.$checkoutPath;
+
+			print_r(getcwd());
+			print_r(array('dirname' => array($checkoutPath => dirname($checkoutPath))));
+			if (!is_dir(dirname($checkoutPath)))
+			{
+				printf('Cannot create checkout path in %s.', dirname($checkoutPath));
+				exit(self::ERROR_BAD_CHECKOUT_PATH);
+			}
+		}
+		else
+		{
+			$checkoutPath = getcwd();
+		}
+
+		$checkoutPath = $checkoutPath.'/trunk.'.$productName.'/';
+		
+		if (file_exists($checkoutPath))
+		{
+			printf("%s already exists.", realpath($checkoutPath));
 			exit(0);
 		}
 
-		echo \helpers\Svn::exec('checkout', $path1, $path2);
+		echo \helpers\Svn::exec('checkout', $path1, $checkoutPath);
 		exit(0);
 	}
 

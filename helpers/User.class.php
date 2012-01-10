@@ -18,7 +18,8 @@ Class User
  	 */
 	public static function getUserDir()
 	{
-		$user = self::getUserInfo();
-		return $user['dir'].'/';
+		// $user = self::getUserInfo();
+		// return $user['dir'].'/';
+		return getenv('HOME').'/';
 	}
 }
