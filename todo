@@ -1,5 +1,6 @@
 
 - Fix paths alle funktioner
 - Move config til ~/.scmrc
+- ? Tracking af produkt-paths/branches i ~/.scm/
 - Add logging class
 - Check svn stat ved release (alt skal være comitted før release)
