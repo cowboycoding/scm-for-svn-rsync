@@ -14,7 +14,7 @@ Class Products
 
 		if(!\helpers\Svn::repoExists($productName))
 		{
-			printf("%s does not exists in the repo (%s).",
+			printf("%s does not exists in the repo (%s).\n",
 				$productName,
 				\Config::$repoPath.$productName);
 			exit(0);
@@ -22,20 +22,15 @@ Class Products
 
 		$path1 = \Config::$svnProtocol.\Config::$repoPath.$productName.'/trunk';
 
-		// Assuming that the third argument is a path to place the
-		// code in
 		if (count($args) === 4)
 		{
 			$checkoutPath = @$args[3];
-			// absolute path? ow append current working dir
 			if (@$checkoutPath[0] !== '/')
 				$checkoutPath = getcwd().'/'.$checkoutPath;
 
-			print_r(getcwd());
-			print_r(array('dirname' => array($checkoutPath => dirname($checkoutPath))));
 			if (!is_dir(dirname($checkoutPath)))
 			{
-				printf('Cannot create checkout path in %s.', dirname($checkoutPath));
+				printf('Cannot create checkout path in %s.\n', dirname($checkoutPath));
 				exit(self::ERROR_BAD_CHECKOUT_PATH);
 			}
 		}
@@ -48,7 +43,7 @@ Class Products
 		
 		if (file_exists($checkoutPath))
 		{
-			printf("%s already exists.", realpath($checkoutPath));
+			printf("%s already exists.\n", realpath($checkoutPath));
 			exit(0);
 		}
 
@@ -58,24 +53,27 @@ Class Products
 
 	public static function release($args)
 	{
-		if(count($args) !== 4)
+		if(count($args) !== 3 && count($args) !== 4)
 			\commands\Help::show('Not enough arguments');
 
-		$productName = $args[2];
-		$destination = $args[3];
+		$trunkPath = $args[2];
+		$productName = $args[3];
 
-		$path1 = \helpers\User::getUserDir().'trunk.'.$productName;
-		$path2 = \Config::$releasePath.$destination; 
+		if (@$trunkPath[0] !== '/')
+			$trunkPath = getcwd().'/'.$trunkPath;
 
-		if(!file_exists($path2))
-		{
-			printf("%s does not exists.", $path2);
-			exit(0);
-		}
+		$trunkPath = $trunkPath.'/.';
 		
-		$dryRun = \helpers\Rsync::remote($path1, $path2, true);
-		echo \helpers\Rsync::colorSync($dryRun);
-	
+		if (!file_exists($trunkPath))
+		{
+			printf("%s does not exists.\n", $trunkPath);
+			exit(self::ERROR_BAD_CHECKOUT_PATH);
+		}
+
+		$releaseDestination = \Config::$releasePath.$productName; 
+		
+		echo \helpers\Rsync::colorSync(\helpers\Rsync::remote($trunkPath, $releaseDestination, true));
+		
 		echo "Are you sure you? Type 'yes' to continue: ";
 
 		$handle = fopen ("php://stdin","r");
@@ -85,7 +83,7 @@ Class Products
 		    exit(0);
 		}
 
-		$sync = \helpers\Rsync::remote($path1, $path2);
-		echo \helpers\Rsync::colorSync($sync);
+		echo \helpers\Rsync::colorSync(\helpers\Rsync::remote($trunkPath, $releaseDestination));
+		exit(0);
 	}
 }
