@@ -15,7 +15,7 @@ Class Help
 		$cmds = array(
 		
 		'[--]checkout-product' => array('args' => array('productname', ':directory name'), 'text' => 'Checkouts a product form the repository'),
-		'[--]release-product' => array('args' => array('productname', 'destination'), 'text' => 'Release a product trunk to destination'),
+		'[--]release-product' => array('args' => array('trunk-destination', 'release-destination'), 'text' => 'Release a product trunk to destination'),
 		'[--]create-branch' => array('args' => array('productname', 'branchname'), 'text' => 'Creates a branch from product'),
 		'[--]checkout-branch' => array('args' => array('productname', 'branchname'), 'text' => 'Checksout a products branch'),
 		'[--]sync-branch' => array('args' => array('productname', 'branchname'), 'text' => 'Synces a products branch with products trunk'),

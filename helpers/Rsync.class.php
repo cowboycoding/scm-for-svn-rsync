@@ -12,11 +12,11 @@ Class Rsync
 	public static function remote($path1, $path2, $dryRun = false)
 	{
 		$cmd = sprintf('rsync -h -r -a -v -e "ssh -l %s" --delete %s %s:%s --exclude=".svn" --log-format="%%o %s:%s/%%n"',
-			\Config::$releaseUser,
+			\Config::get('releaseUser'),
 			$path1,
-			\Config::$releaseServer,
+			\Config::get('releaseServer'),
 			$path2,
-			\Config::$releaseServer,
+			\Config::get('releaseServer'),
 			$path2);
 
 		if($dryRun)

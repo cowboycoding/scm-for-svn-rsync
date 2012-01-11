@@ -16,11 +16,11 @@ Class Products
 		{
 			printf("%s does not exists in the repo (%s).\n",
 				$productName,
-				\Config::$repoPath.$productName);
+				\Config::get('repoPath').$productName);
 			exit(0);
 		}
 
-		$path1 = \Config::$svnProtocol.\Config::$repoPath.$productName.'/trunk';
+		$path1 = \Config::get('svnProtocol').\Config::get('repoPath').$productName.'/trunk';
 
 		if (count($args) === 4)
 		{
@@ -70,7 +70,7 @@ Class Products
 			exit(self::ERROR_BAD_CHECKOUT_PATH);
 		}
 
-		$releaseDestination = \Config::$releasePath.$productName; 
+		$releaseDestination = \Config::get('releasePath').$productName; 
 		
 		echo \helpers\Rsync::colorSync(\helpers\Rsync::remote($trunkPath, $releaseDestination, true));
 		

@@ -26,6 +26,6 @@ Class Svn
 	 */
 	public static function repoExists($repo)
 	{
-		return file_exists(\Config::$repoPath.$repo);
+		return file_exists(\Config::get('repoPath').$repo);
 	}
 }

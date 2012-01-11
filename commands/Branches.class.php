@@ -19,12 +19,12 @@ Class Branches
 		{
 			printf("%s does not exists in the repo (%s).",
 				$productName,
-				\Config::$repoPath.$productName);
+				\Config::get('repoPath').$productName);
 			exit(0);
 		}
 
-		$path1 = \Config::$svnProtocol.\Config::$repoPath.$productName.'/trunk';
-		$path2 = \Config::$svnProtocol.\Config::$repoPath.$productName.'/branches/'.$branchName;
+		$path1 = \Config::get('svnProtocol').\Config::get('repoPath').$productName.'/trunk';
+		$path2 = \Config::get('svnProtocol').\Config::get('repoPath').$productName.'/branches/'.$branchName;
 
 		\helpers\Svn::exec('copy', $path1, $path2, 'Created branch '.$branchName.' of '.$productName);
 		echo ".. Branch created\n";
@@ -46,11 +46,11 @@ Class Branches
 		{
 			printf("%s does not exists in the repo (%s).",
 				$productName,
-				\Config::$repoPath.$productName);
+				\Config::get('repoPath').$productName);
 			exit(0);
 		}
 		
-		$path1 = \Config::$svnProtocol.\Config::$repoPath.$productName.'/branches/'.$branchName;
+		$path1 = \Config::get('$svnProtocol').\Config::get('repoPath').$productName.'/branches/'.$branchName;
 		$path2 = \helpers\User::getUserDir().$branchName.'.'.$productName;
 		
 		if(file_exists($path2))
@@ -79,11 +79,11 @@ Class Branches
 		{
 			printf("%s does not exists in the repo (%s).",
 				$productName,
-				\Config::$repoPath.$productName);
+				\Config::get('repoPath').$productName);
 			exit(0);
 		}
 		
-		$path1 = \Config::$svnProtocol.\Config::$repoPath.$productName.'/trunk';
+		$path1 = \Config::get('svnProtocol').\Config::get('repoPath').$productName.'/trunk';
 		$path2 = \helpers\User::getUserDir().$branchName.'.'.$productName;
 		
 		if(!file_exists($path2))
@@ -111,11 +111,11 @@ Class Branches
 		{
 			printf("%s does not exists in the repo (%s).",
 				$productName,
-				\Config::$repoPath.$productName);
+				\Config::get('repoPath').$productName);
 			exit(0);
 		}
 		
-		$path1 = \Config::$svnProtocol.\Config::$repoPath.$productName.'/branches/'.$branchName;
+		$path1 = \Config::get('svnProtocol').\Config::get('repoPath').$productName.'/branches/'.$branchName;
 		$path2 = \helpers\User::getUserDir().'trunk.'.$productName;
 		
 		if(!file_exists($path2))
