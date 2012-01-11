@@ -1,6 +1,6 @@
 <?php
 /**
- * SCM By Rasmus Theodoer Styrl
+ * SCM By Rasmus Theodoer Styrk
  * Jan. 2012. rts@ordbogen.com
  */
 
