@@ -1,4 +1,4 @@
-<?
+<?php
 
 Class Config
 {
@@ -70,23 +70,36 @@ Class Config
 		self::$config = self::$defaults;
 		
 		// If user have own config file, load it and override defaults	
-		$userConfig = \helpers\User::getUserDir().'.scm';
-		if(file_exists($userConfig))
+		$userConfig = \helpers\User::getUserDir().'.scmrc';
+		if(is_file($userConfig))
 		{
 			$config = file_get_contents($userConfig);
-			foreach(explode(PHP_EOL, $config) as $data)
-			{
-				if(@$data[0] === "#") // line is a comment, skip it
-					continue;
-
-				preg_match('#(.*):"(.*?)"#', $data, $matches);
-				
-				if(count($matches) === 3)
+			
+			if(function_exists('yaml_parse'))
+			{	
+				// TODO: Test if this works on a system with yaml_parse support				
+				$config = yaml_parse($config);
+				foreach($config as $setting => $value)
 				{
-					$setting = $matches[1];
-					$value = $matches[2];
-
 					self::$config[trim($setting)] = trim($value);
+				}
+			}
+			else
+			{
+				foreach(explode(PHP_EOL, $config) as $data)
+				{
+					if(@$data[0] === "#") // line is a comment, skip it
+						continue;
+
+					preg_match('#(.*):"(.*?)"#', $data, $matches);
+					
+					if(count($matches) === 3)
+					{
+						$setting = $matches[1];
+						$value = $matches[2];
+
+						self::$config[trim($setting)] = trim($value);
+					}
 				}
 			}	
 		}
