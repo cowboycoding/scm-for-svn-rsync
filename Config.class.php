@@ -70,7 +70,7 @@ Class Config
 		self::$config = self::$defaults;
 		
 		// If user have own config file, load it and override defaults	
-		$userConfig = \helpers\User::getUserDir().'.scm';
+		$userConfig = \helpers\User::getUserDir().'.scmrc';
 		if(file_exists($userConfig))
 		{
 			$config = file_get_contents($userConfig);
